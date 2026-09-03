@@ -424,17 +424,18 @@ function ElysiumScreen({
         />
       )}
 
-      {/* Vignette overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          zIndex: 1,
-          background: screen.isHero
-            ? "linear-gradient(to bottom, rgba(5,5,7,0.35) 0%, rgba(5,5,7,0.1) 40%, rgba(5,5,7,0.55) 100%)"
-            : "linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.05) 40%, rgba(5,5,5,0.6) 100%)",
-        }}
-        aria-hidden="true"
-      />
+      {/* Vignette overlay (hidden on hero so only the moving image shows) */}
+      {!screen.isHero && (
+        <div
+          className="absolute inset-0"
+          style={{
+            zIndex: 1,
+            background:
+              "linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.05) 40%, rgba(5,5,5,0.6) 100%)",
+          }}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Screen-specific tint */}
       {screen.overlayColor && (
