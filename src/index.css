@@ -69,12 +69,11 @@ html, body, #root {
 }
 
 .anim-rim .screen-bg {
-  animation: rimDrift 60s linear infinite;
-  background-size: 120% auto !important;
+  animation: rimDrift 60s ease-in-out infinite;
 }
 
 .anim-selene .screen-bg {
-  animation: seleneDrift 90s linear infinite;
+  animation: seleneDrift 90s ease-in-out infinite;
 }
 
 /* goldLineIn applied inline on invitation screen */
@@ -96,13 +95,13 @@ html, body, #root {
 }
 
 @keyframes rimDrift {
-  from { background-position: 0 center; }
-  to   { background-position: 300px center; }
+  0%, 100% { transform: scale(1.12) translateX(0); }
+  50%       { transform: scale(1.12) translateX(-40px); }
 }
 
 @keyframes seleneDrift {
-  from { background-position: center 0; }
-  to   { background-position: center 80px; }
+  0%, 100% { transform: scale(1.08) translateY(0); }
+  50%       { transform: scale(1.08) translateY(30px); }
 }
 
 @keyframes steamRise {

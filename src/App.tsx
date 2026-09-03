@@ -6,6 +6,7 @@ import imgAthena from "@/imports/0Uyc4.jpg";
 import imgSelene from "@/imports/Zxkjh.jpg";
 import imgGrove from "@/imports/Kv8MR.jpg";
 import imgBaths from "@/imports/3VIMb.jpg";
+import videoArrival from "@/imports/Space_station_orbiting_Earth_202609032235.mp4";
 
 const UNSPLASH_BASE = "https://images.unsplash.com";
 
@@ -23,6 +24,7 @@ interface ScreenDef {
   caption: string;
   imgSrc?: string;
   bgUrl?: string;
+  videoSrc?: string;
   bgColor: string;
   animClass?: string;
   hasSteam?: boolean;
@@ -49,6 +51,8 @@ const SCREENS: ScreenDef[] = [
     eyebrow: "PRIVATE RECEPTION",
     title: "Arrival",
     caption: "You do not land. You are received.",
+    videoSrc: videoArrival,
+    imgSrc: imgStation,
     bgUrl: UNSPLASH.docking,
     bgColor: "#0d0a06",
     animClass: "anim-docking",
@@ -60,6 +64,7 @@ const SCREENS: ScreenDef[] = [
     eyebrow: "THE RESIDENTIAL RIM",
     title: "One Rotation",
     caption: "One rotation. Earth weight. A coast that never ends.",
+    imgSrc: imgStation,
     bgUrl: UNSPLASH.rim,
     bgColor: "#07090f",
     animClass: "anim-rim",
@@ -117,6 +122,7 @@ const SCREENS: ScreenDef[] = [
     eyebrow: "THE ASSEMBLY HALL",
     title: "No Nation",
     caption: "A city that answers to no nation.",
+    imgSrc: imgStation,
     bgUrl: UNSPLASH.assembly,
     bgColor: "#0a0906",
     bgPosition: "center 30%",
@@ -126,6 +132,7 @@ const SCREENS: ScreenDef[] = [
     eyebrow: "BY INVITATION ONLY",
     title: "Ask",
     caption: "Few seats. Absolute quiet. Ask to be received.",
+    imgSrc: imgApproach,
     bgUrl: UNSPLASH.invitation,
     bgColor: "#090809",
     animClass: "anim-invitation",
@@ -392,16 +399,30 @@ function ElysiumScreen({
       style={{ background: screen.bgColor }}
       aria-hidden={!isActive}
     >
-      {/* Background image */}
-      <div
-        className="screen-bg absolute inset-0 z-0"
-        style={{
-          backgroundImage: `url(${bgSrc})`,
-          backgroundSize: "cover",
-          backgroundPosition: screen.bgPosition ?? "center center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+      {/* Background media: Video or Image */}
+      {screen.videoSrc ? (
+        <video
+          src={screen.videoSrc}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="screen-bg absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+        />
+      ) : (
+        <img
+          src={bgSrc}
+          alt={screen.title}
+          className="screen-bg absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+          style={{
+            objectPosition: screen.bgPosition ?? "center center",
+            backgroundImage: bgSrc ? `url("${bgSrc}")` : undefined,
+            backgroundSize: "cover",
+            backgroundPosition: screen.bgPosition ?? "center center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+      )}
 
       {/* Vignette overlay */}
       <div
@@ -828,6 +849,16 @@ export default function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const wheelCooldown = useRef(false);
+
+  useEffect(() => {
+    SCREENS.forEach((screen) => {
+      const src = screen.imgSrc ?? screen.bgUrl;
+      if (src) {
+        const img = new Image();
+        img.src = src;
+      }
+    });
+  }, []);
 
   const goTo = useCallback(
     (index: number) => {
