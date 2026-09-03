@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&family=Jost:wght@200;300;400;500&display=swap');
+@import 'tailwindcss';
+
+:root {
+  --gold: #C8A96E;
+  --gold-bright: #E6CA85;
+  --gold-dim: rgba(200, 169, 110, 0.4);
+  --bronze: #9E8862;
+  --ivory: #F4EEE5;
+  --ivory-dim: rgba(244, 238, 229, 0.75);
+  --steel: #6B6B6B;
+  --void: #050507;
+  --transition-dur: 700ms;
+  --font-cinzel: 'Cinzel', serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-jost: 'Jost', sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--void);
+  color: var(--ivory);
+  font-family: 'Jost', sans-serif;
+}
+
+/* ─── Scrollbar hide ─── */
+* { scrollbar-width: none; }
+*::-webkit-scrollbar { display: none; }
+
+/* ─── Star overlay ─── */
+.star-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.75) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.45) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 400px 400px, 270px 270px, 180px 180px, 120px 120px;
+  background-position: 0 0, 73px 112px, 211px 57px, 40px 190px;
+  animation: starDrift 140s linear infinite;
+}
+
+/* ─── Steam overlay ─── */
+.steam-particle {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%);
+  filter: blur(18px);
+  animation: steamRise var(--dur, 7s) ease-out var(--delay, 0s) infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ─── Screen BG image animations ─── */
+.anim-approach .screen-bg {
+  animation: approachPulse 22s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+.anim-docking .screen-bg-overlay {
+  animation: amberPulse 4s ease-in-out infinite;
+}
+
+.anim-rim .screen-bg {
+  animation: rimDrift 60s linear infinite;
+  background-size: 120% auto !important;
+}
+
+.anim-selene .screen-bg {
+  animation: seleneDrift 90s linear infinite;
+}
+
+/* goldLineIn applied inline on invitation screen */
+
+/* ─── Keyframes ─── */
+@keyframes starDrift {
+  from { background-position: 0 0, 73px 112px, 211px 57px, 40px 190px; }
+  to   { background-position: 400px 200px, 473px 312px, 611px 257px, 440px 390px; }
+}
+
+@keyframes approachPulse {
+  0%, 100% { transform: scale(1.0); }
+  50%       { transform: scale(1.06); }
+}
+
+@keyframes amberPulse {
+  0%, 100% { opacity: 0.28; }
+  50%       { opacity: 0.52; }
+}
+
+@keyframes rimDrift {
+  from { background-position: 0 center; }
+  to   { background-position: 300px center; }
+}
+
+@keyframes seleneDrift {
+  from { background-position: center 0; }
+  to   { background-position: center 80px; }
+}
+
+@keyframes steamRise {
+  0%   { transform: translateY(0) scaleX(1);   opacity: 0.18; }
+  60%  { opacity: 0.12; }
+  100% { transform: translateY(-220px) scaleX(1.8); opacity: 0; }
+}
+
+@keyframes goldLineIn {
+  from { width: 0; opacity: 0; }
+  to   { width: 100px; opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes screenFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Caption animation on screen change ─── */
+.caption-block {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── Screen transition ─── */
+.elysium-screen {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--transition-dur) ease;
+  pointer-events: none;
+}
+.elysium-screen.active {
+  opacity: 1;
+  pointer-events: auto;
+}
