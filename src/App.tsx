@@ -40,6 +40,7 @@ const SCREENS: ScreenDef[] = [
     eyebrow: "PRIVATE ORBITAL RESIDENCES · 2100",
     title: "LIVE AMONG\nTHE GODS.",
     caption: "A wheel of marble and gold turning above the world. Residencies are not purchased. They are conferred.",
+    videoSrc: videoArrival,
     imgSrc: imgApproach,
     bgColor: "#05060a",
     animClass: "anim-approach",
@@ -416,10 +417,6 @@ function ElysiumScreen({
           className="screen-bg absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
           style={{
             objectPosition: screen.bgPosition ?? "center center",
-            backgroundImage: bgSrc ? `url("${bgSrc}")` : undefined,
-            backgroundSize: "cover",
-            backgroundPosition: screen.bgPosition ?? "center center",
-            backgroundRepeat: "no-repeat",
           }}
         />
       )}

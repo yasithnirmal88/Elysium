@@ -135,10 +135,12 @@ html, body, #root {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity var(--transition-dur) ease;
+  visibility: hidden;
+  transition: opacity var(--transition-dur) ease, visibility var(--transition-dur) ease;
   pointer-events: none;
 }
 .elysium-screen.active {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
 }
