@@ -37,9 +37,9 @@ interface ScreenDef {
 const SCREENS: ScreenDef[] = [
   {
     key: "approach",
-    eyebrow: "PRIVATE ORBITAL RESIDENCES · 2100",
-    title: "LIVE AMONG\nTHE GODS.",
-    caption: "A wheel of marble and gold turning above the world. Residencies are not purchased. They are conferred.",
+    eyebrow: "ELYSIUM · EARTH ORBIT",
+    title: "Live among\nthe gods.",
+    caption: "A wheel of metal and light. Greek only where you sleep and think.",
     videoSrc: videoArrival,
     imgSrc: imgApproach,
     bgColor: "#05060a",
@@ -467,9 +467,9 @@ function ElysiumScreen({
 // ─── Top navigation bar ──────────────────────────────────────────
 
 const NAV_LINKS = [
-  { label: "The Station", screen: 0 },
-  { label: "Residences",  screen: 3 },
-  { label: "Life Aboard", screen: 6 },
+  { label: "Approach", screen: 0 },
+  { label: "Dock",  screen: 3 },
+  { label: "Rim", screen: 6 },
   { label: "Invitation",  screen: 9 },
 ];
 
